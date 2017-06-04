@@ -1,0 +1,33 @@
+{
+  "name": "testregistration",
+  "version": "1.0.0",
+  "description": "Registration test project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/psdms/testregistration.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/psdms/testregistration/issues"
+  },
+  "homepage": "https://github.com/psdms/testregistration#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
+
+
+{
+  "name": "get-post-demo",
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "^1.8.1",
+    "express": "^4.9.0"
+  }
+}

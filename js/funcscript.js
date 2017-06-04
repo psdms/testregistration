@@ -23,7 +23,7 @@ function setSignUp(arrSignUp) {
 }
 
 //проверка длины парол
-function passValidUp() { я
+function passValidUp() {
     var passcount = document.getElementById('passSignUp').value || null; //количество символов в пароле
 
     if (passcount.length < 6) //если пароль < 6 символов
@@ -68,7 +68,7 @@ function validateSignUp(el) {
             alert(" You Create Account ");
         }
     }
-    alert(" Yuo are register ");
+    //alert(" Yuo are register ");
 }
 
 
@@ -104,4 +104,28 @@ function validateSignIn() {
         alert("Different data are entered!"); //Введены различные данные
 }
 
-document.getElementById('submitSignUp').addEventListener('click', validateSignUp)
+
+function SendGet() {
+    $.get("http://localhost:3000/SignUpOK");
+}
+
+// ajax work
+function SendPost() {
+    //отправляю POST запрос и получаю ответ
+    $(document).ready(function(){
+        var user,pass;
+
+        user=$("#emailSignUp").val();
+        pass=$("#passSignUp").val();
+        $.post("http://localhost:3000/loginSignUp",{user: user,password: pass}, function(data){
+            if(data==='yes') //done
+            {
+                SendGet();
+                document.getElementById('ajax_status').innerHTML = 'SignUp success';
+            }
+        });
+    });
+}
+
+document.getElementById('submitSignUp').addEventListener('click', validateSignUp);
+document.getElementById('submitSignUp').addEventListener('click', SendPost);
