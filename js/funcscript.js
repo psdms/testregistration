@@ -6,6 +6,7 @@
  passSignIn   - Пароль при входе в систему
  */
 
+
 //Переменные для хранения данных
 var arrSignUp = {
     email: "",
@@ -21,6 +22,7 @@ function setSignUp(arrSignUp) {
     arrSignUp.email = document.getElementById('emailSignUp').value || null;
     arrSignUp.pass = document.getElementById('passSignUp').value || null;
 }
+
 
 //проверка длины парол
 function passValidUp() {
@@ -40,6 +42,27 @@ function passValidIn() {
         document.getElementById('pass22').innerHTML = " Pass < 6 ";
     else
         document.getElementById('pass22').innerHTML = "";
+}
+
+//----------------------------------------------------
+function RedirectSignIn() {
+    document.location.href = "http://localhost:3000/signin";
+}
+
+function signup_html() {
+     //отправляю POST запрос и получаю ответ
+     $(document).ready(function(){
+         var user,pass;
+
+         user=$("#emailSignUp").val();
+         pass=$("#passSignUp").val();
+         $.post("http://localhost:3000/SignUpEnter",{user: user,password: pass}, function(data){
+             if(data==='yes'){ //done
+                 RedirectSignIn();
+                 document.getElementById('ajax_status').innerHTML = 'SignUp success';
+             }
+         });
+     });
 }
 
 //функция для регистрации
@@ -66,14 +89,41 @@ function validateSignUp(el) {
             //localStorage.setItem('user', arrSignUp.email);
             setSignUp(arrSignUp);
             alert(" You Create Account ");
+            signup_html();
         }
     }
     //alert(" Yuo are register ");
 }
 
 
+
+//-------------------------------------------------------------
+function RedirectWork() {
+    document.location.href = "http://localhost:3000/work";
+}
+
+function Signinhtml() {
+    //отправляю POST запрос и получаю ответ
+    $(document).ready(function(){
+        var userin,passin;
+
+        userin=$("#emailSignIn").val();
+        passin=$("#passSignIn").val();
+        $.post("http://localhost:3000/SignInEnter",{user: userin,password: passin}, function(data){
+            if(data === 'yes'){
+                alert(" You Sign In! ");
+                document.getElementById('ajax_status').innerHTML = 'SignUp success';
+                RedirectWork();
+            }
+            else{
+                alert("Different data are entered!"); //Введены различные данные
+            }
+        });
+    });
+}
 //функция для входа в систему
 function validateSignIn() {
+    alert('adfbvsadfbsdfbsdfbsdf');
     var boolVar = true;
     var r = /^\w+@\w+\.\w{2,4}$/i;
     var email = document.getElementById('emailSignIn').value || null;
@@ -90,27 +140,20 @@ function validateSignIn() {
     }
     else {
         if (boolVar) {
-            document.getElementById('idemailIn').innerHTML = "";
+            document.getElementById('idemailIn').innerHTML = "987654312";
             console.log('gkgkgkgkgkgdfvk');
             arrSignIn = {
                 email: document.getElementById('emailSignIn').value || null,
                 pass: document.getElementById('passSignIn').value || null};
+
+            Signinhtml();
         }
     }
-
-    if (arrSignUp.email === arrSignIn.email && arrSignUp.pass === arrSignIn.pass)
-        alert("The same data was entered!"); //Те же данные были введены!
-    else
-        alert("Different data are entered!"); //Введены различные данные
 }
 
-
-function SendGet() {
-    $.get("http://localhost:3000/SignUpOK");
-}
 
 // ajax work
-function SendPost() {
+/*function SendPost() {
     //отправляю POST запрос и получаю ответ
     $(document).ready(function(){
         var user,pass;
@@ -126,6 +169,8 @@ function SendPost() {
         });
     });
 }
+*/
 
 document.getElementById('submitSignUp').addEventListener('click', validateSignUp);
-document.getElementById('submitSignUp').addEventListener('click', SendPost);
+//document.getElementById('submitSignUp').addEventListener('click', SendPost);
+document.getElementById('submitSignIn').addEventListener('click', validateSignIn);
